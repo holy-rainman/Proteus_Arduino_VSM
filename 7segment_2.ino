@@ -14,6 +14,7 @@
 #define pbAH	9
 #define timer	A1
 #define clock	A2
+#define reset	A3
 
 #define d1(x)	digitalWrite(led1,x? HIGH:LOW)
 #define d2(x)	digitalWrite(led2,x? HIGH:LOW)
@@ -44,6 +45,7 @@ void setup ()
    digitalWrite(timer,LOW);
    pinMode(timer,OUTPUT);
    pinMode(clock,OUTPUT);
+   pinMode(reset,OUTPUT);
    
    Serial.begin(9600);
 }
@@ -66,6 +68,10 @@ void loop()
       while(getPB()==2);
       delay(200);
       digitalWrite(clock,LOW);
-      if(seg==21) seg=0;
+      if(seg==21) 
+      { seg=0;
+        digitalWrite(reset,HIGH); delay(200);
+        digitalWrite(reset,LOW); 
+      }
    }
 }
